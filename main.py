@@ -16,7 +16,7 @@ def user(id):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT * FROM table WHERE user_id=%s", id)  # Your awesome SQL query here!
+		cursor.execute("SELECT * FROM tbl_user WHERE user_id=%s", id)  # Your awesome SQL query here!
 		row = cursor.fetchone()
 		resp = jsonify(row)
 		resp.status_code = 200
