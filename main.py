@@ -11,7 +11,7 @@ application = app
 def indexpage():
     return 'Original Author: The Internet'
 
-@app.route('/user/<ini:id>'methods=['GET'])
+@app.route('/user/<ini:id>', methods=['GET'])
 def user(id):
 	try:
 		conn = mysql.connect()
