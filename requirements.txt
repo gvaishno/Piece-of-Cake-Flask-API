@@ -1,0 +1,10 @@
+Flask==1.1.1
+Flask-Cors==3.0.8
+Flask-Ext==0.1
+Flask-MySQL==1.4.0
+Flask-RESTful==0.3.7
+PyMySQL==0.9.3
+pytz==2019.2
+requests==2.22.0
+urllib3==1.25.3
+Werkzeug==0.16.0
