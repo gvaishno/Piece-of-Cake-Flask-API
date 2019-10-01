@@ -5,7 +5,6 @@ from db_config import mysql
 from flask import jsonify
 from flask import flash, request
 from werkzeug import generate_password_hash, check_password_hash
-application = app
 
 @app.route('/')
 def indexpage():
@@ -26,7 +25,36 @@ def user(id):
 	finally:
 		cursor.close()
 		conn.close()
-
+		
+@app.route('/add', methods=['POST'])
+def add_user():
+	try:
+		_json = request.json
+		_name = _json['name']
+		_email = _json['email']
+		_password = _json['pwd']
+		# Validate the received values
+		if _name and _email and _password and request.method == 'POST':
+			#Do not save password as a plain text
+			_hashed_password = generate_password_hash(_password)
+			# Save edits
+			sql = "INSERT INTO tbl_user(user_name, user_email, user_password) VALUES(%s, %s, %s)"  # Your awesome SQL query here!
+			data = (_name, _email, _hashed_password,)
+			conn = mysql.connect()
+			cursor = conn.cursor()
+			cursor.execute(sql, data)
+			conn.commit()
+			resp = jsonify('User added successfully!')
+			resp.status_code = 200
+			return resp
+		else:
+			return not_found()
+	except Exception as e:
+		print(e)
+	finally:
+		cursor.close() 
+		conn.close()
+		
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
